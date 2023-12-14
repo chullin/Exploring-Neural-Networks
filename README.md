@@ -5,28 +5,57 @@ Exploring Neural Networks: Playful Adventures with PyTorch and TensorFlow
 以下是在使用 GPU 的情況下安裝 TensorFlow 並設置 Python 虛擬環境的一般步驟。請確保您已經安裝了適當的 GPU 驅動程序，並且您的 GPU 支持 CUDA（如果您想要使用 GPU 運行 TensorFlow）。
 
 ## 步驟一：安裝 NVIDIA CUDA Toolkit 和 cuDNN
-1. 安裝 NVIDIA CUDA Toolkit：
+### 1. 安裝 NVIDIA CUDA Toolkit：
     * 根據您的 GPU 和操作系統版本，從 NVIDIA 官方網站下載並安裝 CUDA Toolkit：https://developer.nvidia.com/cuda-toolkit
 
     ![Alt text](image.png)
-2. 安裝 cuDNN：
+### 2. 安裝 cuDNN：
     * 從 NVIDIA 官方網站下載 cuDNN：https://developer.nvidia.com/cudnn
+    ![Alt text](image-1.png)
     * 將 cuDNN 解壓縮，將文件複製到 CUDA Toolkit 的安裝目錄中。
+    ```
+    點開 Toolkit 安裝檔，可以看到路徑C:\Users\JOSEPH~1\AppData\Local\Temp\cuda
+    超傻眼...居然一定要用搜尋的
+    cudnn-windows-x86_64-8.9.7.29_cuda12-archive
+    複製進去
+    ```
 
 ## 步驟二：創建 Python 虛擬環境
-1. 安裝虛擬環境管理工具（如果未安裝）：
+### 1. 安裝虛擬環境管理工具（如果未安裝）：
 
 ```bash
 pip install virtualenv
 ```
+![Alt text](image-2.png)
 
-2. 創建虛擬環境：
+* 執行
+```
+C:\Users\"Joseph Chen"\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe -m pip install --upgrade pip
+```
+* 然後進到 Path 中，將 .../Scripts 新增到 Path 中
+```
+C:\Users\Joseph Chen\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts
+```
 
+### 2. 創建虛擬環境：
+* (terminal 要重開，並且建議使用管理員執行)
+* 感覺用 window 環境還是不太好，後來使用 win11 的 Ubuntu 系統，真的很屌欸。
+*  路徑名稱可以在網路磁碟機中找到，將 /home/usr_name/.local/bin 放到 Path 底下
+
+* 若已經安裝第一步驟，並且無法執行第二步驟，請先
+```
+解除安裝：
+pip uninstall virtualenv
+並使用 sudo 安裝：
+sudo pip install virtualenv
+```
+* 創建虛擬環境
 ```bash
 virtualenv myenv
 ```
-3. 啟動虛擬環境（Linux/Mac）：
-
+### 3. 啟動虛擬環境（Linux/Mac）：
+    * 我用 Ubuntu 就用這個
+    * source 是 shell 命令，用於執行腳本使用
 ```bash
 source myenv/bin/activate
 ```
@@ -34,6 +63,11 @@ source myenv/bin/activate
 
 ```bash
 .\myenv\Scripts\activate
+```
+
+### 4. 離開虛擬環境
+```
+deactivate
 ```
 
 ## 步驟三：安裝 TensorFlow
