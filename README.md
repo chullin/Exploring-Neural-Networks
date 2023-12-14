@@ -8,10 +8,10 @@ Exploring Neural Networks: Playful Adventures with PyTorch and TensorFlow
 ### 1. 安裝 NVIDIA CUDA Toolkit：
     * 根據您的 GPU 和操作系統版本，從 NVIDIA 官方網站下載並安裝 CUDA Toolkit：https://developer.nvidia.com/cuda-toolkit
 
-    ![Alt text](image.png)
+![Alt text](image.png)
 ### 2. 安裝 cuDNN：
     * 從 NVIDIA 官方網站下載 cuDNN：https://developer.nvidia.com/cudnn
-    ![Alt text](image-1.png)
+![Alt text](image-1.png)
     * 將 cuDNN 解壓縮，將文件複製到 CUDA Toolkit 的安裝目錄中。
     ```
     點開 Toolkit 安裝檔，可以看到路徑C:\Users\JOSEPH~1\AppData\Local\Temp\cuda
@@ -71,17 +71,22 @@ deactivate
 ```
 
 ## 步驟三：安裝 TensorFlow
-1. 安裝 TensorFlow：
+### 1. 安裝 TensorFlow：
     * 安裝 CPU 版本（如果沒有 GPU）：
 
 ```bash
 pip install tensorflow
 ```
 
-2. 安裝 GPU 版本（在已經安裝 CUDA 和 cuDNN 的情況下）：
+### 2. 安裝 GPU 版本（在已經安裝 CUDA 和 cuDNN 的情況下）：
 
 ```bash
 pip install tensorflow-gpu
+```
+
+### 3. Ubuntu 中查看路徑
+```
+echo $PATH
 ```
 
 ## 步驟四：驗證 TensorFlow 安裝
@@ -99,3 +104,10 @@ print(tf.__version__)
 * 在 Windows 上，可能需要安裝 Microsoft Visual C++ Redistributable，以便在編譯期間解決一些依賴項。
 
 請注意，這只是一般的步驟，實際操作中可能會因系統配置和軟件版本的不同而有所不同。確保參考 TensorFlow 和 CUDA/cuDNN 的官方文檔以獲取最準確的信息。
+
+## 安裝錯啦
+
+![Alt text](image-3.png)
+* 結果我用 WSL 系統，需要安裝 Linux 系統的 NVIDIA CUDA Toolkit 跟 cuDNN
+
+![Alt text](image-4.png)
