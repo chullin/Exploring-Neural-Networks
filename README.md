@@ -7,19 +7,19 @@ Exploring Neural Networks: Playful Adventures with PyTorch and TensorFlow
 # (Windows)
 ## 步驟一：安裝 NVIDIA CUDA Toolkit 和 cuDNN
 ### 1. 安裝 NVIDIA CUDA Toolkit：
-    * 根據您的 GPU 和操作系統版本，從 NVIDIA 官方網站下載並安裝 CUDA Toolkit：https://developer.nvidia.com/cuda-toolkit
+* 根據您的 GPU 和操作系統版本，從 NVIDIA 官方網站下載並安裝 CUDA Toolkit：https://developer.nvidia.com/cuda-toolkit
 
 ![Alt text](image.png)
 ### 2. 安裝 cuDNN：
-    * 從 NVIDIA 官方網站下載 cuDNN：https://developer.nvidia.com/cudnn
+* 從 NVIDIA 官方網站下載 cuDNN：https://developer.nvidia.com/cudnn
 ![Alt text](image-1.png)
-    * 將 cuDNN 解壓縮，將文件複製到 CUDA Toolkit 的安裝目錄中。
-    ```
-    點開 Toolkit 安裝檔，可以看到路徑C:\Users\JOSEPH~1\AppData\Local\Temp\cuda
-    超傻眼...居然一定要用搜尋的
-    cudnn-windows-x86_64-8.9.7.29_cuda12-archive
-    複製進去
-    ```
+* 將 cuDNN 解壓縮，將文件複製到 CUDA Toolkit 的安裝目錄中。
+```
+點開 Toolkit 安裝檔，可以看到路徑C:\Users\JOSEPH~1\AppData\Local\Temp\cuda
+超傻眼...居然一定要用搜尋的
+cudnn-windows-x86_64-8.9.7.29_cuda12-archive
+複製進去
+```
 
 
 
@@ -28,7 +28,7 @@ Exploring Neural Networks: Playful Adventures with PyTorch and TensorFlow
 
 # (Linux)
 ![Alt text](image-3.png)
-* 結果我用 WSL 系統，需要安裝 Linux 系統的 NVIDIA CUDA Toolkit 跟 cuDNN
+* 後來我選擇用 WSL 系統，需要安裝 Linux 系統的 NVIDIA CUDA Toolkit 跟 cuDNN
 
 ![Alt text](image-4.png)
 
@@ -42,21 +42,20 @@ sudo apt-get update
 sudo apt-get -y install cuda-toolkit-12-3
 ```
 * 要安裝舊版核心模組風格：
-(我選了這個)
+(則一；我選了這個)
 ```
 sudo apt-get install -y cuda-drivers
 ```
-* 要安裝開放核心模組風格：
+* 安裝開放核心模組風格：
 ```
 sudo apt-get install -y nvidia-kernel-open-545
 sudo apt-get install -y cuda-drivers-545
-
 ```
 
 * 似乎在 windows11 底下的 WSL Ubuntu 22.04 執行還是需要 windows 的 GPU 驅動
 
 ## 步驟三：啟用 WSL 2 的 GPU 支持
-1. 打開 PowerShell 作為管理員，並執行以下命令以啟用 WSL 2 的 GPU 支持：
+### 1. 打開 PowerShell 作為管理員，並執行以下命令以啟用 WSL 2 的 GPU 支持：
 
 ```bash
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
@@ -66,7 +65,7 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 ![Alt text](image-5.png)
 奇怪的指令真的有用?!
 
-2. 重新啟動計算機。
+### 2. 重新開機
 
 
 ## 步驟二：創建 Python 虛擬環境
@@ -127,10 +126,10 @@ pip install tensorflow
 ```
 
 ### 2. 安裝 GPU 版本（在已經安裝 CUDA 和 cuDNN 的情況下）：
+(不管是 Windows 還是 Ubuntu 都不行，都要求裝上面的指令)
 
-```bash
-pip install tensorflow-gpu
-```
+~~pip install tensorflow-gpu~~
+
 
 ### 3. Ubuntu 中查看路徑
 ```
@@ -141,15 +140,62 @@ echo $PATH
 1. 在 Python 環境中驗證 TensorFlow 安裝：
 
 ```python
-Copy code
 import tensorflow as tf
 print(tf.__version__)
 ```
 如果一切順利，您應該看到 TensorFlow 的版本信息。
 
-### 注意事項：
-* 如果您使用 Anaconda，可以使用 conda 來創建和管理虛擬環境，但仍然需要通過 pip 安裝 TensorFlow。
-* 在 Windows 上，可能需要安裝 Microsoft Visual C++ Redistributable，以便在編譯期間解決一些依賴項。
+![Alt text](image-6.png)
 
-請注意，這只是一般的步驟，實際操作中可能會因系統配置和軟件版本的不同而有所不同。確保參考 TensorFlow 和 CUDA/cuDNN 的官方文檔以獲取最準確的信息。
+```
+pip3 show tensorflow
+```
+把 Location 加入到 Path 中
 
+類似於這樣
+```
+export PYTHONPATH=/your/tensorflow/path:$PYTHONPATH.
+```
+Windows 目前還是不行... 再找時間處理
+
+
+## 使用 Ubuntu 的後續
+
+1. TF_ENABLE_ONEDNN_OPTS 警告：
+
+```
+I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+ ```
+這是一個通知，指出 TensorFlow 啟用了 oneDNN（以前稱為 MKL-DNN）自定義操作。由於計算順序的不同，可能會導致輕微的浮點捨入誤差，這可能會使數值結果稍有不同。如果希望禁用，可以設置環境變量 TF_ENABLE_ONEDNN_OPTS=0。
+
+2. cuDNN、cuFFT 和 cuBLAS 警告：
+
+
+```
+E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+```
+```
+E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+```
+```
+E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+```
+
+這些警告表示 TensorFlow 嘗試註冊 cuDNN、cuFFT 和 cuBLAS 工廠時遇到了問題，因為這些工廠已經註冊過了。這可能是因為你的環境中存在多個 TensorFlow 或者是 TensorFlow 和其他庫之間的衝突。這樣的警告通常可以忽略，但如果你遇到了問題，可能需要檢查環境中的庫版本。
+
+3. CPU 指令優化通知：
+
+```
+I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations. To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+```
+這是一個通知，指出這個 TensorFlow 二進制文件是經過優化的，以在性能關鍵操作中使用可用的 CPU 指令。如果希望啟用特定指令，可以使用適當的編譯器標誌重新構建 TensorFlow。
+
+4. TF-TRT 警告：
+
+```bash
+W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+ ```
+這個警告表示 TensorFlow 沒有找到 TensorRT，這是一個 NVIDIA 的深度學習加速庫。這可能是因為 TensorRT 沒有被安裝，或者 TensorFlow 版本與 TensorRT 不兼容。如果你需要使用 TensorRT，可以根據 TensorFlow 和 TensorRT 的相容性文檔檢查版本並進行相應的安裝。
+
+
+看起來好像無傷大雅(?
