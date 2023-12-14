@@ -111,3 +111,39 @@ print(tf.__version__)
 * 結果我用 WSL 系統，需要安裝 Linux 系統的 NVIDIA CUDA Toolkit 跟 cuDNN
 
 ![Alt text](image-4.png)
+
+```
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/12.3.1/local_installers/cuda-repo-ubuntu2204-12-3-local_12.3.1-545.23.08-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2204-12-3-local_12.3.1-545.23.08-1_amd64.deb
+sudo cp /var/cuda-repo-ubuntu2204-12-3-local/cuda-*-keyring.gpg /usr/share/keyrings/
+sudo apt-get update
+sudo apt-get -y install cuda-toolkit-12-3
+```
+* 要安裝舊版核心模組風格：
+(我選了這個)
+```
+sudo apt-get install -y cuda-drivers
+```
+* 要安裝開放核心模組風格：
+```
+sudo apt-get install -y nvidia-kernel-open-545
+sudo apt-get install -y cuda-drivers-545
+
+```
+
+* 似乎在 windows11 底下的 WSL Ubuntu 22.04 執行還是需要 windows 的 GPU 驅動
+
+## 步驟三：啟用 WSL 2 的 GPU 支持
+1. 打開 PowerShell 作為管理員，並執行以下命令以啟用 WSL 2 的 GPU 支持：
+
+```bash
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+![Alt text](image-5.png)
+奇怪的指令真的有用?!
+
+2. 重新啟動計算機。
