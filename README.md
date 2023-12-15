@@ -175,7 +175,7 @@ pip install --upgrade --force-reinstall tensorflow
 ![Alt text](image-8.png)
 1. TF_ENABLE_ONEDNN_OPTS 警告：
 
-```
+```vbnet
 I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
  ```
 這是一個通知，指出 TensorFlow 啟用了 oneDNN（以前稱為 MKL-DNN）自定義操作。由於計算順序的不同，可能會導致輕微的浮點捨入誤差，這可能會使數值結果稍有不同。如果希望禁用，可以設置環境變量 TF_ENABLE_ONEDNN_OPTS=0。
@@ -183,13 +183,13 @@ I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see
 2. cuDNN、cuFFT 和 cuBLAS 警告：
 
 
-```
+```vbnet
 E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
 ```
-```
+```vbnet
 E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
 ```
-```
+```vbnet
 E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
 ```
 
@@ -197,14 +197,14 @@ E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to regis
 
 3. CPU 指令優化通知：
 
-```
+```vbnet
 I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations. To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
 ```
 這是一個通知，指出這個 TensorFlow 二進制文件是經過優化的，以在性能關鍵操作中使用可用的 CPU 指令。如果希望啟用特定指令，可以使用適當的編譯器標誌重新構建 TensorFlow。
 
 4. TF-TRT 警告：
 
-```bash
+```vbnet
 W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
  ```
 這個警告表示 TensorFlow 沒有找到 TensorRT，這是一個 NVIDIA 的深度學習加速庫。這可能是因為 TensorRT 沒有被安裝，或者 TensorFlow 版本與 TensorRT 不兼容。如果你需要使用 TensorRT，可以根據 TensorFlow 和 TensorRT 的相容性文檔檢查版本並進行相應的安裝。
