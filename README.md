@@ -11,10 +11,10 @@ Complete the installation of CUDA Toolkit, cuDNN, virtualenv, and tensorflow on 
 ### 1. 安裝 NVIDIA CUDA Toolkit：
 * 根據您的 GPU 和操作系統版本，從 NVIDIA 官方網站下載並安裝 CUDA Toolkit：https://developer.nvidia.com/cuda-toolkit
 
-![Alt text](image.png)
+![Alt text](README_pic/image.png)
 ### 2. 安裝 cuDNN：
 * 從 NVIDIA 官方網站下載 cuDNN：https://developer.nvidia.com/cudnn
-![Alt text](image-1.png)
+![Alt text](README_pic/image-1.png)
 * 將 cuDNN 解壓縮，將文件複製到 CUDA Toolkit 的安裝目錄中。
 ```
 點開 Toolkit 安裝檔，可以看到路徑C:\Users\JOSEPH~1\AppData\Local\Temp\cuda
@@ -29,10 +29,10 @@ cudnn-windows-x86_64-8.9.7.29_cuda12-archive
 ---
 
 # (Linux)
-![Alt text](image-3.png)
+![Alt text](README_pic/image-3.png)
 * 後來我選擇用 WSL 系統，需要安裝 Linux 系統的 NVIDIA CUDA Toolkit 跟 cuDNN
 
-![Alt text](image-4.png)
+![Alt text](README_pic/image-4.png)
 
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
@@ -64,7 +64,7 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 ```
-![Alt text](image-5.png)
+![Alt text](README_pic/image-5.png)
 奇怪的指令真的有用?!
 
 ### 2. 重新開機
@@ -76,7 +76,7 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 ```bash
 pip install virtualenv
 ```
-![Alt text](image-2.png)
+![Alt text](README_pic/image-2.png)
 
 * 執行
 ```
@@ -147,7 +147,7 @@ print(tf.__version__)
 ```
 如果一切順利，您應該看到 TensorFlow 的版本信息。
 
-![Alt text](image-6.png)
+![Alt text](README_pic/image-6.png)
 
 ```
 pip3 show tensorflow
@@ -157,7 +157,7 @@ pip3 show tensorflow
 export PYTHONPATH=/your/tensorflow/path:$PYTHONPATH.
 ```
 * 當然我還是用貼上的新增
-![Alt text](image-9.png)
+![Alt text](README_pic/image-9.png)
 
 * 可以透過 where 指令查看路徑是否已新增，要確保虛擬環境的路徑出現在套件路徑的前面
 ```
@@ -172,7 +172,7 @@ pip install --upgrade --force-reinstall tensorflow
 ```
 
 ## Ubuntu 成功後 tensorflow 提示
-![Alt text](image-8.png)
+![Alt text](README_pic/image-8.png)
 1. TF_ENABLE_ONEDNN_OPTS 警告：
 
 ```vbnet
@@ -214,7 +214,7 @@ W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could no
 
 
 ## Windows 成功後提示
-![Alt text](image-7.png)
+![Alt text](README_pic/image-7.png)
 
 1. oneDNN 自定義操作通知：
 
