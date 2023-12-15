@@ -150,17 +150,27 @@ print(tf.__version__)
 ```
 pip3 show tensorflow
 ```
-把 Location 加入到 Path 中
-
-類似於這樣
+* 把 Location 加入到 Path 中，指令大概像這樣：
 ```
 export PYTHONPATH=/your/tensorflow/path:$PYTHONPATH.
 ```
-Windows 目前還是不行... 再找時間處理
+* 當然我還是用貼上的新增
+![Alt text](image-9.png)
+
+* 可以透過 where 指令查看路徑是否已新增，要確保虛擬環境的路徑出現在套件路徑的前面
+```
+python -m site
+```
 
 
-## 使用 Ubuntu 的後續
+### 都確認沒問題還是不行
+* 輸入指令，強制更新並重新安裝
+```
+pip install --upgrade --force-reinstall tensorflow
+```
 
+## Ubuntu 成功後 tensorflow 提示
+![Alt text](image-8.png)
 1. TF_ENABLE_ONEDNN_OPTS 警告：
 
 ```
@@ -199,3 +209,32 @@ W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could no
 
 
 看起來好像無傷大雅(?
+
+
+## Windows 成功後提示
+![Alt text](image-7.png)
+
+1. oneDNN 自定義操作通知：
+
+```vbnet
+ 2023-12-16 00:16:35.351954: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+```
+TensorFlow 使用 oneDNN（以前稱為 MKL-DNN）進行優化的深度學習操作。這個通知提醒你，由於不同計算順序可能導致浮點捨入誤差，你可能會看到略微不同的數值結果。如果希望關閉這個特性，你可以設置環境變量 TF_ENABLE_ONEDNN_OPTS=0。
+
+2. tf.losses.sparse_softmax_cross_entropy 警告：
+
+```vbnet
+ WARNING:tensorflow:From C:\Users\Joseph Chen\myenv\Lib\site-packages\keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+```
+這個警告來自 Keras 模塊，指出 tf.losses.sparse_softmax_cross_entropy 已經被棄用。建議使用 tf.compat.v1.losses.sparse_softmax_cross_entropy 替代。這是因為 TensorFlow 2.x 引入了 Eager Execution 模式，而 tf.losses 被移到了 tf.compat.v1.losses 中，以保持向後兼容性。在新的代碼中，你應該使用 tf.keras.losses.sparse_categorical_crossentropy 作為替代。
+
+例如：
+
+```python
+ # 舊的用法（已棄用）
+tf.losses.sparse_softmax_cross_entropy(...)
+
+# 新的用法
+tf.compat.v1.losses.sparse_softmax_cross_entropy(...)  # 或者使用 tf.keras.losses.sparse_categorical_crossentropy
+```
+你可以根據警告中的建議更新你的代碼，以避免使用已棄用的函數。
