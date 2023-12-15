@@ -4,6 +4,8 @@ Exploring Neural Networks: Playful Adventures with PyTorch and TensorFlow
 
 以下是在使用 GPU 的情況下安裝 TensorFlow 並設置 Python 虛擬環境的一般步驟。請確保您已經安裝了適當的 GPU 驅動程序，並且您的 GPU 支持 CUDA（如果您想要使用 GPU 運行 TensorFlow）。
 
+Complete the installation of CUDA Toolkit, cuDNN, virtualenv, and tensorflow on both system (locol Windows, and WSL Ubuntu)
+
 # (Windows)
 ## 步驟一：安裝 NVIDIA CUDA Toolkit 和 cuDNN
 ### 1. 安裝 NVIDIA CUDA Toolkit：
